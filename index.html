@@ -177,6 +177,14 @@
       -webkit-overflow-scrolling: touch;
     }
 
+    .token-keyword { color: #c4a7ff; }
+    .token-type { color: #78dce8; }
+    .token-string { color: #a9dc76; }
+    .token-number { color: #fc9867; }
+    .token-comment { color: #7f8a9e; font-style: italic; }
+    .token-annotation { color: #ffd866; }
+    .token-method { color: #ab9df2; }
+
     code:not(.code code) {
       border-radius: 4px;
       background: #f0f2f7;
@@ -244,15 +252,15 @@
         6</button>
       <button type="button" role="tab" id="tab-7" aria-controls="panel-7" aria-selected="false" tabindex="-1">Pertemuan
         7</button>
+      <button type="button" role="tab" id="tab-cases" aria-controls="panel-cases" aria-selected="false" tabindex="-1">Studi Kasus</button>
     </nav>
     <main>
       <section class="lesson" id="panel-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0">
         <div class="lesson-head"><span class="number">01</span>
           <h2>Dasar Java dan lingkungan pengembangan</h2>
         </div>
-        <p>Java ditulis sebagai source code <code>.java</code>, dikompilasi menjadi bytecode <code>.class</code>, lalu
-          dijalankan oleh JVM. JDK menyediakan alat pengembangan termasuk compiler <code>javac</code>; IDE membantu
-          menulis, menjalankan, dan men-debug program.</p>
+        <p>Java adalah bahasa pemrograman berorientasi objek yang source code-nya dikompilasi menjadi bytecode, lalu dijalankan oleh JVM. Alur ini memisahkan penulisan program dari eksekusinya dan membantu bytecode berjalan di berbagai sistem operasi yang memiliki JVM.</p>
+        <p>JDK dipakai untuk mengembangkan program; di dalamnya tersedia compiler <code>javac</code> dan perangkat runtime. IDE seperti IntelliJ IDEA menyatukan editor, compiler, runner, dan debugger agar proses menulis serta mencari kesalahan lebih mudah.</p>
         <ul>
           <li><strong>JDK</strong>: perangkat untuk mengembangkan aplikasi Java.</li>
           <li><strong>JRE</strong>: lingkungan dan library untuk menjalankan program.</li>
@@ -296,6 +304,7 @@ class Main {
 }</code></pre>
         <p><code>mhs</code> adalah referensi ke object <code>Mahasiswa</code>. Setiap object punya nilai atribut
           instance sendiri, sementara method mendefinisikan perilaku yang dapat dipanggil.</p>
+        <div class="note">Class menjawab “data dan perilaku apa yang dimiliki?”, sedangkan object adalah satu wujud nyata dengan nilai datanya sendiri.</div>
       </section>
       <section class="lesson" id="panel-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0" hidden>
         <div class="lesson-head"><span class="number">03</span>
@@ -324,7 +333,9 @@ Produk p = new Produk("Buku", 25000);
 System.out.println(Produk.jumlahProduk);</code></pre>
         <p><strong>Instance member</strong> dimiliki masing-masing object. <strong>Static member</strong> dimiliki
           bersama oleh class, sehingga contoh penghitung jumlah object diakses melalui <code>Produk.jumlahProduk</code>.
-        </p>
+          Constructor dipanggil ketika <code>new</code> membuat object; overloading memberi beberapa cara inisialisasi,
+          sedangkan <code>this(...)</code> meneruskan inisialisasi ke constructor lain dalam class yang sama.</p>
+        <div class="note">Parameter constructor yang berbeda membentuk signature berbeda. Hanya perbedaan nama parameter tidak cukup untuk overloading.</div>
       </section>
       <section class="lesson" id="panel-4" role="tabpanel" aria-labelledby="tab-4" tabindex="0" hidden>
         <div class="lesson-head"><span class="number">04</span>
@@ -352,7 +363,8 @@ System.out.println(Produk.jumlahProduk);</code></pre>
     }
 }</code></pre>
         <p>Di luar class, kode membaca saldo lewat <code>getSaldo()</code>, bukan mengubah <code>saldo</code> secara
-          langsung. Validasi berada di pintu perubahan, yaitu setter.</p>
+          langsung. Validasi berada di pintu perubahan, yaitu setter. Inilah information hiding: class mengatur sendiri cara data internal dibaca dan diubah, sehingga pemanggil tidak bisa sembarang merusak keadaan object.</p>
+        <div class="note">Getter/setter bukan sekadar boilerplate: gunakan setter untuk menjaga aturan, misalnya saldo tidak boleh negatif atau IPK harus berada di rentang 0–4.</div>
       </section>
       <section class="lesson" id="panel-5" role="tabpanel" aria-labelledby="tab-5" tabindex="0" hidden>
         <div class="lesson-head"><span class="number">05</span>
@@ -383,7 +395,8 @@ class Kucing extends Hewan {
     }
 }</code></pre>
         <p><code>Kucing</code> IS-A <code>Hewan</code>, jadi object kucing dapat memakai method warisan seperti
-          <code>makan()</code> sekaligus memiliki perilaku khusus <code>mengeong()</code>.</p>
+          <code>makan()</code> sekaligus memiliki perilaku khusus <code>mengeong()</code>. Constructor subclass memanggil <code>super(nama)</code> sebagai langkah pertama agar bagian superclass terinisialisasi sebelum bagian subclass.</p>
+        <div class="note">Inheritance cocok untuk relasi “adalah jenis dari”. Kalau relasinya “memiliki”, biasanya gunakan composition dengan menyimpan object lain sebagai atribut.</div>
       </section>
       <section class="lesson" id="panel-6" role="tabpanel" aria-labelledby="tab-6" tabindex="0" hidden>
         <div class="lesson-head"><span class="number">06</span>
@@ -451,6 +464,7 @@ class Motor extends Kendaraan {
 }</code></pre>
         <div class="note">Ingat untuk diagram: panah inheritance mengarah dari subclass ke superclass; atribut object
           pada TiketParkir menggambarkan HAS-A. Hubungan penggunaan oleh Main adalah dependency, bukan IS-A.</div>
+        <p>Class diagram membantu merancang struktur sebelum kode ditulis: kotak class merangkum atribut dan method, sementara garis dan panah menyatakan hubungan. Composition menaruh object bagian sebagai atribut class pemilik; tiket parkir mencatat kendaraan yang sedang diparkir, tetapi bukan jenis kendaraan.</p>
       </section>
       <section class="lesson" id="panel-7" role="tabpanel" aria-labelledby="tab-7" tabindex="0" hidden>
         <div class="lesson-head"><span class="number">07</span>
@@ -492,12 +506,164 @@ System.out.println(bentuk.luas()); // method Lingkaran dipanggil</code></pre>
 }</code></pre>
         <p>Overloading dan overriding berbeda: overloading mengubah daftar parameter, sedangkan overriding
           mempertahankan signature method superclass dan mengganti perilakunya.</p>
+        <div class="note">Manfaatnya: kode pemanggil dapat bekerja dengan tipe induk yang sama, sementara tiap object memberi perilaku yang sesuai dengan jenis konkretnya.</div>
+      </section>
+      <section class="lesson" id="panel-cases" role="tabpanel" aria-labelledby="tab-cases" tabindex="0" hidden>
+        <div class="lesson-head"><span class="number">+</span><h2>Studi kasus dari praktikum</h2></div>
+        <p>Contoh berikut merangkai beberapa konsep PBO dalam alur yang lebih nyata. Tiap kasus menyorot masalah, desain object, dan konsep yang muncul.</p>
+
+        <h3>1. Transaksi e-commerce: saldo dan stok</h3>
+        <p>Di contoh <code>MainPengguna.java</code>, object pengguna membeli object produk. Method transaksi menghitung total, membandingkan dengan saldo, lalu hanya mengubah saldo dan stok jika saldo cukup. Kondisi gagal tidak boleh mengurangi stok.</p>
+        <pre class="code"><code>class Produk {
+    String nama;
+    double harga;
+    int stok;
+
+    Produk(String nama, double harga, int stok) {
+        this.nama = nama;
+        this.harga = harga;
+        this.stok = stok;
+    }
+}
+
+class Pengguna {
+    String nama;
+    double saldo;
+
+    Pengguna(String nama, double saldo) {
+        this.nama = nama;
+        this.saldo = saldo;
+    }
+
+    void beli(Produk produk, int jumlah) {
+        double total = produk.harga * jumlah;
+        if (jumlah > 0 && jumlah <= produk.stok && saldo >= total) {
+            saldo -= total;
+            produk.stok -= jumlah;
+            System.out.println("Transaksi berhasil");
+        } else {
+            System.out.println("Transaksi gagal");
+        }
+    }
+}</code></pre>
+        <p><strong>Konsep:</strong> object saling berinteraksi lewat method dan parameter. Perhatikan validasi stok, jumlah, dan saldo sebelum mengubah state object.</p>
+
+        <h3>2. Tiket parkir: relasi kendaraan</h3>
+        <p>Kasus laporan pertemuan 6 memodelkan kendaraan umum, variasi mobil/motor, dan tiket yang merekam kendaraan. Mobil dan motor adalah kendaraan (IS-A); tiket memiliki kendaraan (HAS-A). Counter static mencatat jumlah tiket lintas object.</p>
+        <pre class="code"><code>class Kendaraan {
+    private String nomorPolisi;
+    private String merk;
+
+    Kendaraan(String nomorPolisi, String merk) {
+        this.nomorPolisi = nomorPolisi;
+        this.merk = merk;
+    }
+
+    String getNomorPolisi() { return nomorPolisi; }
+    String getMerk() { return merk; }
+}
+
+class Mobil extends Kendaraan {
+    private int jumlahPintu;
+
+    Mobil(String nomorPolisi, String merk, int jumlahPintu) {
+        super(nomorPolisi, merk);
+        this.jumlahPintu = jumlahPintu;
+    }
+}
+
+class TiketParkir {
+    private static int jumlahTiket;
+    private Kendaraan kendaraan;
+    private double tarifPerJam;
+
+    TiketParkir(Kendaraan kendaraan) {
+        this(kendaraan, 5000);
+    }
+
+    TiketParkir(Kendaraan kendaraan, double tarifPerJam) {
+        this.kendaraan = kendaraan;
+        this.tarifPerJam = tarifPerJam;
+        jumlahTiket++;
+    }
+}</code></pre>
+        <p><strong>Konsep:</strong> <code>super(...)</code> mengisi data bagian superclass; overloaded constructor menyediakan tarif default atau tarif khusus; composition memisahkan tanggung jawab tiket dari detail kendaraan.</p>
+
+        <h3>3. Penggajian: polymorphism pegawai</h3>
+        <p>Contoh <code>TugasMandiriPegawai.java</code> menyimpan berbagai jenis pegawai dalam array bertipe induk. Saat <code>hitungGaji()</code> dipanggil, Java menjalankan implementasi sesuai object sebenarnya. Pegawai tetap menambahkan bonus; method bonus juga di-overload agar bisa memakai persentase eksplisit.</p>
+        <pre class="code"><code>class Pegawai {
+    String nama;
+    double gajiPokok;
+
+    Pegawai(String nama, double gajiPokok) {
+        this.nama = nama;
+        this.gajiPokok = gajiPokok;
+    }
+
+    double hitungBonus() { return 0; }
+    double hitungBonus(double persen) { return gajiPokok * persen; }
+    double hitungGaji() { return gajiPokok + hitungBonus(); }
+}
+
+class PegawaiTetap extends Pegawai {
+    double persenBonus;
+
+    PegawaiTetap(String nama, double gajiPokok, double persenBonus) {
+        super(nama, gajiPokok);
+        this.persenBonus = persenBonus;
+    }
+
+    @Override
+    double hitungGaji() {
+        return gajiPokok + hitungBonus(persenBonus);
+    }
+}
+
+Pegawai[] pegawai = {
+    new Pegawai("Andi", 5_000_000),
+    new PegawaiTetap("Budi", 6_000_000, 0.10)
+};
+
+for (Pegawai p : pegawai) {
+    System.out.println(p.nama + ": " + p.hitungGaji());
+}</code></pre>
+        <p><strong>Konsep:</strong> upcasting terjadi saat <code>PegawaiTetap</code> dimasukkan ke array <code>Pegawai[]</code>. Dynamic dispatch memilih <code>hitungGaji()</code> yang override saat runtime; overloading membedakan <code>hitungBonus()</code> dan <code>hitungBonus(double)</code> dari parameternya.</p>
       </section>
     </main>
   </div>
   <div class="footer wrap">Ringkasan berdasarkan materi praktikum PBO pertemuan 1–7.</div>
   <script>
+    const javaToken = /("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\/\/[^\n]*|\/\*[\s\S]*?\*\/|@[A-Za-z_$][\w$]*|\b(?:public|private|protected|static|final|class|new|return|void|int|double|boolean|if|else|for|while|extends|super|this|instanceof|true|false|null|throw|throws|try|catch)\b|\b(?:String|System|Math|Object|Integer|Boolean|Override|Produk|Pengguna|Mahasiswa|Kendaraan|Mobil|Motor|TiketParkir|Pegawai|PegawaiTetap|Bentuk|Lingkaran|Hewan|Kucing)\b|\b\d+(?:_\d+)*(?:\.\d+)?\b|\b[A-Za-z_$][\w$]*(?=\s*\())/g;
+    const javaKeywords = new Set('public private protected static final class new return void int double boolean if else for while extends super this instanceof true false null throw throws try catch'.split(' '));
+    const javaTypes = new Set('String System Math Object Integer Boolean Override Produk Pengguna Mahasiswa Kendaraan Mobil Motor TiketParkir Pegawai PegawaiTetap Bentuk Lingkaran Hewan Kucing'.split(' '));
+
+    document.querySelectorAll('pre.code code').forEach(code => {
+      const source = code.textContent;
+      const fragment = document.createDocumentFragment();
+      let cursor = 0;
+      for (const match of source.matchAll(javaToken)) {
+        const token = match[0];
+        const index = match.index;
+        fragment.append(document.createTextNode(source.slice(cursor, index)));
+        const kind = token.startsWith('"') || token.startsWith("'") ? 'string'
+          : token.startsWith('//') || token.startsWith('/*') ? 'comment'
+          : token.startsWith('@') ? 'annotation'
+          : /^\d/.test(token) ? 'number'
+          : javaKeywords.has(token) ? 'keyword'
+          : javaTypes.has(token) || /[A-Z]/.test(token[0]) ? 'type'
+          : 'method';
+        const span = document.createElement('span');
+        span.className = `token-${kind}`;
+        span.textContent = token;
+        fragment.append(span);
+        cursor = index + token.length;
+      }
+      fragment.append(document.createTextNode(source.slice(cursor)));
+      code.replaceChildren(fragment);
+    });
+
     const tabs = [...document.querySelectorAll('[role="tab"]')];
+
     const panels = tabs.map(tab => document.getElementById(tab.getAttribute('aria-controls')));
 
     function selectTab(index, moveFocus = false) {
