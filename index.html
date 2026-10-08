@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7fb">
+  <title>Ringkasan PBO — Pertemuan 1–7</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172033;
+      --muted: #65708a;
+      --line: #e1e6f0;
+      --paper: #fff;
+      --canvas: #f6f7fb;
+      --blue: #3659d9;
+      --blue-soft: #edf1ff;
+      --code: #111827;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--canvas);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .wrap {
+      width: min(100% - 32px, 900px);
+      margin-inline: auto;
+    }
+
+    header {
+      padding: 42px 0 24px;
+    }
+
+    .eyebrow {
+      color: var(--blue);
+      font-size: .78rem;
+      font-weight: 750;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 7px 0 8px;
+      font-size: clamp(1.85rem, 6vw, 3rem);
+      line-height: 1.12;
+      letter-spacing: -.045em;
+    }
+
+    header p {
+      max-width: 650px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    nav {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 8px 2px 16px;
+      scrollbar-width: thin;
+    }
+
+    nav button {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--muted);
+      padding: 9px 14px;
+      cursor: pointer;
+      font-weight: 650;
+    }
+
+    nav button[aria-selected="true"] {
+      color: #fff;
+      border-color: var(--blue);
+      background: var(--blue);
+    }
+
+    nav button:focus-visible {
+      outline: 3px solid #99aaff;
+      outline-offset: 3px;
+    }
+
+    main {
+      padding-bottom: 48px;
+    }
+
+    .lesson {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: clamp(20px, 5vw, 38px);
+      box-shadow: 0 12px 36px rgb(30 45 80 / 5%);
+    }
+
+    .lesson[hidden] {
+      display: none;
+    }
+
+    .lesson-head {
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 20px;
+      margin-bottom: 23px;
+    }
+
+    .number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      margin-right: 8px;
+      border-radius: 11px;
+      color: var(--blue);
+      background: var(--blue-soft);
+      font-weight: 800;
+      vertical-align: 4px;
+    }
+
+    h2 {
+      display: inline;
+      font-size: clamp(1.35rem, 4vw, 1.85rem);
+      line-height: 1.3;
+      letter-spacing: -.03em;
+    }
+
+    h3 {
+      margin: 25px 0 7px;
+      font-size: 1.05rem;
+    }
+
+    p {
+      margin: 8px 0 14px;
+    }
+
+    ul {
+      padding-left: 1.25rem;
+    }
+
+    li+li {
+      margin-top: 4px;
+    }
+
+    .note {
+      margin: 18px 0;
+      border-left: 3px solid var(--blue);
+      border-radius: 0 10px 10px 0;
+      background: var(--blue-soft);
+      padding: 12px 15px;
+      color: #26345f;
+    }
+
+    .code {
+      margin: 14px 0 20px;
+      overflow-x: auto;
+      border-radius: 12px;
+      background: var(--code);
+      color: #e5e7eb;
+      padding: 17px;
+      font: .84rem/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      tab-size: 4;
+      white-space: pre;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    code:not(.code code) {
+      border-radius: 4px;
+      background: #f0f2f7;
+      padding: .1em .35em;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .92em;
+    }
+
+    .footer {
+      padding: 0 0 28px;
+      color: var(--muted);
+      font-size: .85rem;
+      text-align: center;
+    }
+
+    @media (min-width: 700px) {
+      header {
+        padding-top: 58px;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        overflow: visible;
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .lesson {
+        animation: enter .18s ease-out;
+      }
+
+      @keyframes enter {
+        from {
+          opacity: .7;
+          transform: translateY(4px);
+        }
+
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="wrap">
+    <div class="eyebrow">Panduan belajar UTS · Pemrograman Berorientasi Objek</div>
+    <h1>Ringkasan PBO<br>Pertemuan 1–7</h1>
+    <p>Konsep inti, istilah penting, dan contoh Java untuk membantu mengulang materi praktikum.</p>
+  </header>
+  <div class="wrap">
+    <nav role="tablist" aria-label="Pilih materi pertemuan">
+      <button type="button" role="tab" id="tab-1" aria-controls="panel-1" aria-selected="true">Pertemuan 1</button>
+      <button type="button" role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1">Pertemuan
+        2</button>
+      <button type="button" role="tab" id="tab-3" aria-controls="panel-3" aria-selected="false" tabindex="-1">Pertemuan
+        3</button>
+      <button type="button" role="tab" id="tab-4" aria-controls="panel-4" aria-selected="false" tabindex="-1">Pertemuan
+        4</button>
+      <button type="button" role="tab" id="tab-5" aria-controls="panel-5" aria-selected="false" tabindex="-1">Pertemuan
+        5</button>
+      <button type="button" role="tab" id="tab-6" aria-controls="panel-6" aria-selected="false" tabindex="-1">Pertemuan
+        6</button>
+      <button type="button" role="tab" id="tab-7" aria-controls="panel-7" aria-selected="false" tabindex="-1">Pertemuan
+        7</button>
+    </nav>
+    <main>
+      <section class="lesson" id="panel-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0">
+        <div class="lesson-head"><span class="number">01</span>
+          <h2>Dasar Java dan lingkungan pengembangan</h2>
+        </div>
+        <p>Java ditulis sebagai source code <code>.java</code>, dikompilasi menjadi bytecode <code>.class</code>, lalu
+          dijalankan oleh JVM. JDK menyediakan alat pengembangan termasuk compiler <code>javac</code>; IDE membantu
+          menulis, menjalankan, dan men-debug program.</p>
+        <ul>
+          <li><strong>JDK</strong>: perangkat untuk mengembangkan aplikasi Java.</li>
+          <li><strong>JRE</strong>: lingkungan dan library untuk menjalankan program.</li>
+          <li><strong>JVM</strong>: mengeksekusi bytecode Java.</li>
+          <li>Nama file harus sama persis dengan nama <code>public class</code>.</li>
+        </ul>
+        <h3>Struktur program dan alur eksekusi</h3>
+        <pre class="code"><code>public class HaloJava {
+    public static void main(String[] args) {
+        System.out.println("Siap belajar PBO");
+    }
+}</code></pre>
+        <pre class="code"><code>javac HaloJava.java
+java HaloJava</code></pre>
+        <p><code>main</code> adalah titik awal program. Perintah pertama mengompilasi source; perintah kedua menjalankan
+          class melalui JVM.</p>
+      </section>
+      <section class="lesson" id="panel-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0" hidden>
+        <div class="lesson-head"><span class="number">02</span>
+          <h2>Class dan object</h2>
+        </div>
+        <p><strong>Class</strong> adalah cetak biru yang mendefinisikan atribut (data) dan method (perilaku).
+          <strong>Object</strong> adalah instance yang dibuat dari class. Class belum menjadi object sampai
+          diinstansiasi dengan <code>new</code>.</p>
+        <pre class="code"><code>class Mahasiswa {
+    String nama;
+    double ipk;
+
+    void tampilkanData() {
+        System.out.println(nama + " — IPK " + ipk);
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        Mahasiswa mhs = new Mahasiswa();
+        mhs.nama = "Alya";
+        mhs.ipk = 3.75;
+        mhs.tampilkanData();
+    }
+}</code></pre>
+        <p><code>mhs</code> adalah referensi ke object <code>Mahasiswa</code>. Setiap object punya nilai atribut
+          instance sendiri, sementara method mendefinisikan perilaku yang dapat dipanggil.</p>
+      </section>
+      <section class="lesson" id="panel-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0" hidden>
+        <div class="lesson-head"><span class="number">03</span>
+          <h2>Constructor, this, dan static</h2>
+        </div>
+        <p><strong>Constructor</strong> berjalan saat object dibuat dan menginisialisasi datanya. Constructor
+          overloading berarti satu class punya beberapa constructor dengan daftar parameter berbeda. <code>this</code>
+          merujuk object aktif, lazim untuk membedakan atribut dan parameter.</p>
+        <pre class="code"><code>class Produk {
+    String nama;
+    double harga;
+    static int jumlahProduk;
+
+    Produk() {
+        this("Belum diberi nama", 0);
+    }
+
+    Produk(String nama, double harga) {
+        this.nama = nama;
+        this.harga = harga;
+        jumlahProduk++;
+    }
+}
+
+Produk p = new Produk("Buku", 25000);
+System.out.println(Produk.jumlahProduk);</code></pre>
+        <p><strong>Instance member</strong> dimiliki masing-masing object. <strong>Static member</strong> dimiliki
+          bersama oleh class, sehingga contoh penghitung jumlah object diakses melalui <code>Produk.jumlahProduk</code>.
+        </p>
+      </section>
+      <section class="lesson" id="panel-4" role="tabpanel" aria-labelledby="tab-4" tabindex="0" hidden>
+        <div class="lesson-head"><span class="number">04</span>
+          <h2>Encapsulation dan access modifier</h2>
+        </div>
+        <p><strong>Encapsulation</strong> membungkus data dan perilaku di dalam class serta mengontrol akses ke detail
+          internalnya. Atribut biasanya dibuat <code>private</code>; getter membaca nilai dan setter mengubahnya. Setter
+          bisa memvalidasi data supaya object tetap dalam keadaan valid.</p>
+        <ul>
+          <li><code>private</code>: hanya dapat diakses dari class itu sendiri.</li>
+          <li><code>protected</code>: dapat diakses di package yang sama dan oleh subclass.</li>
+          <li><code>public</code>: dapat diakses dari mana saja yang melihat class tersebut.</li>
+        </ul>
+        <pre class="code"><code>class Rekening {
+    private double saldo;
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        if (saldo >= 0) {
+            this.saldo = saldo;
+        }
+    }
+}</code></pre>
+        <p>Di luar class, kode membaca saldo lewat <code>getSaldo()</code>, bukan mengubah <code>saldo</code> secara
+          langsung. Validasi berada di pintu perubahan, yaitu setter.</p>
+      </section>
+      <section class="lesson" id="panel-5" role="tabpanel" aria-labelledby="tab-5" tabindex="0" hidden>
+        <div class="lesson-head"><span class="number">05</span>
+          <h2>Inheritance dan keyword super</h2>
+        </div>
+        <p><strong>Inheritance</strong> memungkinkan subclass mewarisi perilaku dan atribut yang dapat diakses dari
+          superclass. Gunakan <code>extends</code> untuk relasi “adalah jenis dari” (IS-A). <code>super</code> memanggil
+          constructor atau anggota superclass; constructor superclass berjalan lebih dahulu.</p>
+        <pre class="code"><code>class Hewan {
+    protected String nama;
+
+    Hewan(String nama) {
+        this.nama = nama;
+    }
+
+    void makan() {
+        System.out.println(nama + " sedang makan");
+    }
+}
+
+class Kucing extends Hewan {
+    Kucing(String nama) {
+        super(nama);
+    }
+
+    void mengeong() {
+        System.out.println(nama + ": Meong!");
+    }
+}</code></pre>
+        <p><code>Kucing</code> IS-A <code>Hewan</code>, jadi object kucing dapat memakai method warisan seperti
+          <code>makan()</code> sekaligus memiliki perilaku khusus <code>mengeong()</code>.</p>
+      </section>
+      <section class="lesson" id="panel-6" role="tabpanel" aria-labelledby="tab-6" tabindex="0" hidden>
+        <div class="lesson-head"><span class="number">06</span>
+          <h2>Class diagram: inheritance dan composition</h2>
+        </div>
+        <p>Pertemuan ini menggabungkan relasi class dengan studi kasus kendaraan dan tiket parkir. Di class diagram,
+          nama class, atribut, method, dan relasi menunjukkan struktur program.</p>
+        <ul>
+          <li><strong>IS-A</strong>: <code>Mobil</code> dan <code>Motor</code> adalah <code>Kendaraan</code> — gunakan
+            inheritance (<code>extends</code>).</li>
+          <li><strong>HAS-A</strong>: <code>TiketParkir</code> memiliki object <code>Kendaraan</code> sebagai atribut —
+            ini composition, bukan inheritance.</li>
+          <li><strong>Dependency</strong>: <code>Main</code> menggunakan class lain untuk menjalankan program.</li>
+          <li>Constructor overloading memberi pilihan membuat tiket dengan atau tanpa tarif per jam;
+            <code>static jumlahTiket</code> menghitung tiket bersama.</li>
+        </ul>
+        <pre class="code"><code>class Kendaraan {
+    private String nomorPolisi;
+    private String merk;
+
+    Kendaraan(String nomorPolisi, String merk) {
+        this.nomorPolisi = nomorPolisi;
+        this.merk = merk;
+    }
+
+    public String getNomorPolisi() { return nomorPolisi; }
+    public String getMerk() { return merk; }
+}
+
+class Mobil extends Kendaraan {
+    private int jumlahPintu;
+
+    Mobil(String nomorPolisi, String merk, int jumlahPintu) {
+        super(nomorPolisi, merk);
+        this.jumlahPintu = jumlahPintu;
+    }
+}
+
+class Motor extends Kendaraan {
+    private String jenisMotor;
+
+    Motor(String nomorPolisi, String merk, String jenisMotor) {
+        super(nomorPolisi, merk);
+        this.jenisMotor = jenisMotor;
+    }
+}</code></pre>
+        <pre class="code"><code>class TiketParkir {
+    private static int jumlahTiket = 0;
+    private Kendaraan kendaraan; // HAS-A
+    private double tarifPerJam;
+
+    TiketParkir(Kendaraan kendaraan) {
+        this(kendaraan, 5000);
+    }
+
+    TiketParkir(Kendaraan kendaraan, double tarifPerJam) {
+        this.kendaraan = kendaraan;
+        this.tarifPerJam = tarifPerJam;
+        jumlahTiket++;
+    }
+
+    static int getJumlahTiket() {
+        return jumlahTiket;
+    }
+}</code></pre>
+        <div class="note">Ingat untuk diagram: panah inheritance mengarah dari subclass ke superclass; atribut object
+          pada TiketParkir menggambarkan HAS-A. Hubungan penggunaan oleh Main adalah dependency, bukan IS-A.</div>
+      </section>
+      <section class="lesson" id="panel-7" role="tabpanel" aria-labelledby="tab-7" tabindex="0" hidden>
+        <div class="lesson-head"><span class="number">07</span>
+          <h2>Polymorphism, casting, dan dispatch</h2>
+        </div>
+        <p><strong>Polymorphism</strong> berarti satu pemanggilan dapat menghasilkan perilaku berbeda.
+          <strong>Overloading</strong> memakai nama method sama dengan parameter berbeda dan dipilih compiler.
+          <strong>Overriding</strong> mengganti implementasi method warisan; saat runtime JVM memilih implementasi
+          berdasarkan tipe object sebenarnya.</p>
+        <pre class="code"><code>class Bentuk {
+    double luas() { return 0; }
+}
+
+class Lingkaran extends Bentuk {
+    private double jariJari;
+
+    Lingkaran(double jariJari) {
+        this.jariJari = jariJari;
+    }
+
+    @Override
+    double luas() {
+        return Math.PI * jariJari * jariJari;
+    }
+}
+
+Bentuk bentuk = new Lingkaran(3); // upcasting otomatis
+System.out.println(bentuk.luas()); // method Lingkaran dipanggil</code></pre>
+        <ul>
+          <li><strong>Upcasting</strong>: referensi subclass ke tipe superclass; otomatis dan aman.</li>
+          <li><strong>Downcasting</strong>: referensi superclass ke subclass; eksplisit dan hanya aman bila object
+            memang tipe tersebut. Periksa dengan <code>instanceof</code>.</li>
+          <li><strong>Dynamic method dispatch</strong>: pemilihan method override berdasarkan tipe object aktual, bukan
+            tipe referensi.</li>
+        </ul>
+        <pre class="code"><code>if (bentuk instanceof Lingkaran) {
+    Lingkaran lingkaran = (Lingkaran) bentuk;
+    System.out.println(lingkaran.luas());
+}</code></pre>
+        <p>Overloading dan overriding berbeda: overloading mengubah daftar parameter, sedangkan overriding
+          mempertahankan signature method superclass dan mengganti perilakunya.</p>
+      </section>
+    </main>
+  </div>
+  <div class="footer wrap">Ringkasan berdasarkan materi praktikum PBO pertemuan 1–7.</div>
+  <script>
+    const tabs = [...document.querySelectorAll('[role="tab"]')];
+    const panels = tabs.map(tab => document.getElementById(tab.getAttribute('aria-controls')));
+
+    function selectTab(index, moveFocus = false) {
+      tabs.forEach((tab, i) => {
+        const selected = i === index;
+        tab.setAttribute('aria-selected', selected);
+        tab.tabIndex = selected ? 0 : -1;
+        panels[i].hidden = !selected;
+      });
+      if (moveFocus) tabs[index].focus();
+    }
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => selectTab(index));
+      tab.addEventListener('keydown', event => {
+        const next = { ArrowRight: (index + 1) % tabs.length, ArrowLeft: (index - 1 + tabs.length) % tabs.length, Home: 0, End: tabs.length - 1 }[event.key];
+        if (next !== undefined) {
+          event.preventDefault();
+          selectTab(next, true);
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
