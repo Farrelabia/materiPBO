@@ -261,30 +261,48 @@
         </div>
         <p>Java adalah bahasa pemrograman berorientasi objek yang source code-nya dikompilasi menjadi bytecode, lalu dijalankan oleh JVM. Alur ini memisahkan penulisan program dari eksekusinya dan membantu bytecode berjalan di berbagai sistem operasi yang memiliki JVM.</p>
         <p>JDK dipakai untuk mengembangkan program; di dalamnya tersedia compiler <code>javac</code> dan perangkat runtime. IDE seperti IntelliJ IDEA menyatukan editor, compiler, runner, dan debugger agar proses menulis serta mencari kesalahan lebih mudah.</p>
-        <ul>
-          <li><strong>JDK</strong>: perangkat untuk mengembangkan aplikasi Java.</li>
-          <li><strong>JRE</strong>: lingkungan dan library untuk menjalankan program.</li>
-          <li><strong>JVM</strong>: mengeksekusi bytecode Java.</li>
-          <li>Nama file harus sama persis dengan nama <code>public class</code>.</li>
-        </ul>
+        <h3>JDK</h3>
+        <p>JDK adalah paket untuk mengembangkan program Java, termasuk compiler <code>javac</code>.</p>
+        <h3>JRE</h3>
+        <p>JRE menyediakan runtime dan library yang dibutuhkan untuk menjalankan program Java.</p>
+        <h3>JVM</h3>
+        <p>JVM adalah mesin virtual yang mengeksekusi bytecode Java. JRE menyediakan lingkungan untuk menjalankan JVM, sedangkan JDK menambahkan alat pengembangan.</p>
+        <h3>Source code, compiler, dan bytecode</h3>
+        <p>Source code adalah instruksi Java yang ditulis programmer. Compiler mengubahnya menjadi bytecode dalam file <code>.class</code>, lalu JVM mengeksekusinya. Bytecode memungkinkan program berjalan di sistem berbeda selama sistem tersebut memiliki JVM yang sesuai.</p>
+        <h3>IDE dan nama file</h3>
+        <p>IDE seperti IntelliJ IDEA menyatukan editor, compiler, runner, dan debugger. Nama file harus sama dengan nama class yang dideklarasikan <code>public</code>, termasuk huruf besar-kecil.</p>
+        <h3>Source code, compiler, dan bytecode</h3>
+        <p>Source code adalah instruksi Java yang ditulis programmer. Compiler mengubahnya menjadi bytecode di file <code>.class</code>; JVM lalu mengeksekusi bytecode tersebut. Karena format bytecode sama, program dapat dijalankan pada sistem berbeda selama tersedia JVM yang sesuai.</p>
+        <h3>Class, method, dan main</h3>
+        <p>Class menjadi wadah deklarasi kode. Method adalah bagian bernama yang berisi instruksi untuk melakukan pekerjaan tertentu. Method <code>main</code> dengan bentuk <code>public static void main(String[] args)</code> menjadi titik masuk program yang dijalankan Java.</p>
+        <h3>IDE dan nama file</h3>
+        <p>IDE seperti IntelliJ IDEA menggabungkan editor, compiler, runner, dan debugger. Jika sebuah class dideklarasikan <code>public</code>, nama file Java harus sama dengan nama class tersebut, termasuk huruf besar-kecil.</p>
         <h3>Struktur program dan alur eksekusi</h3>
         <pre class="code"><code>public class HaloJava {
     public static void main(String[] args) {
         System.out.println("Siap belajar PBO");
     }
 }</code></pre>
+        <h3>Cara memanggil</h3>
+        <p>Simpan program sebagai <code>HaloJava.java</code>, lalu kompilasi dan jalankan dari terminal:</p>
         <pre class="code"><code>javac HaloJava.java
 java HaloJava</code></pre>
-        <p><code>main</code> adalah titik awal program. Perintah pertama mengompilasi source; perintah kedua menjalankan
-          class melalui JVM.</p>
+        <h3>Output</h3>
+        <pre class="code"><code>Siap belajar PBO</code></pre>
+        <p><code>main</code> adalah titik awal program. Perintah pertama mengompilasi source; perintah kedua menjalankan class melalui JVM.</p>
       </section>
       <section class="lesson" id="panel-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0" hidden>
         <div class="lesson-head"><span class="number">02</span>
           <h2>Class dan object</h2>
         </div>
-        <p><strong>Class</strong> adalah cetak biru yang mendefinisikan atribut (data) dan method (perilaku).
-          <strong>Object</strong> adalah instance yang dibuat dari class. Class belum menjadi object sampai
-          diinstansiasi dengan <code>new</code>.</p>
+        <h3>Class</h3>
+        <p>Class adalah cetak biru yang mendefinisikan data dan perilaku yang dapat dimiliki object. Deklarasi class sendiri belum membuat object.</p>
+        <h3>Atribut dan method</h3>
+        <p>Atribut menyimpan keadaan/data object, sedangkan method berisi perilaku atau operasi yang dapat dilakukan object. Pada contoh ini, <code>nama</code> dan <code>ipk</code> adalah atribut; <code>tampilkanData()</code> adalah method.</p>
+        <h3>Object dan instansiasi</h3>
+        <p>Object adalah satu instance nyata dari class. Operator <code>new</code> membuat object dan mengembalikan referensi yang dapat disimpan dalam variabel. Setiap object <code>Mahasiswa</code> memiliki nilai atributnya sendiri.</p>
+        <h3>Contoh kode dan pemanggilan</h3>
+        <p>Atribut menyimpan keadaan object; method melakukan tindakan. Buat object dengan <code>new</code>, isi atribut, lalu panggil method melalui referensinya.</p>
         <pre class="code"><code>class Mahasiswa {
     String nama;
     double ipk;
@@ -294,7 +312,7 @@ java HaloJava</code></pre>
     }
 }
 
-class Main {
+public class MainMahasiswa {
     public static void main(String[] args) {
         Mahasiswa mhs = new Mahasiswa();
         mhs.nama = "Alya";
@@ -302,6 +320,8 @@ class Main {
         mhs.tampilkanData();
     }
 }</code></pre>
+        <h3>Output</h3>
+        <pre class="code"><code>Alya — IPK 3.75</code></pre>
         <p><code>mhs</code> adalah referensi ke object <code>Mahasiswa</code>. Setiap object punya nilai atribut
           instance sendiri, sementara method mendefinisikan perilaku yang dapat dipanggil.</p>
         <div class="note">Class menjawab “data dan perilaku apa yang dimiliki?”, sedangkan object adalah satu wujud nyata dengan nilai datanya sendiri.</div>
@@ -310,9 +330,18 @@ class Main {
         <div class="lesson-head"><span class="number">03</span>
           <h2>Constructor, this, dan static</h2>
         </div>
-        <p><strong>Constructor</strong> berjalan saat object dibuat dan menginisialisasi datanya. Constructor
-          overloading berarti satu class punya beberapa constructor dengan daftar parameter berbeda. <code>this</code>
-          merujuk object aktif, lazim untuk membedakan atribut dan parameter.</p>
+        <h3>Constructor</h3>
+        <p>Constructor adalah blok khusus yang dijalankan saat object dibuat dengan <code>new</code>. Namanya sama dengan class dan tidak memiliki tipe pengembalian; biasanya constructor mengisi nilai awal agar object siap dipakai.</p>
+        <h3>Constructor overloading</h3>
+        <p>Constructor overloading berarti satu class memiliki beberapa constructor dengan jumlah atau tipe parameter berbeda. Java memilih constructor yang cocok dengan argumen pada <code>new</code>; nama parameter saja tidak membentuk signature yang berbeda.</p>
+        <h3>Keyword this</h3>
+        <p><code>this</code> merujuk object yang metodenya sedang dijalankan. Dalam <code>this.nama = nama</code>, sisi kiri adalah field object dan sisi kanan adalah parameter. Bentuk <code>this(...)</code> memanggil constructor lain di class yang sama dan harus menjadi instruksi pertama constructor.</p>
+        <h3>Field instance</h3>
+        <p>Field instance adalah data milik masing-masing object. Nilainya bisa berbeda antara satu object <code>Produk</code> dan object lainnya, seperti nama dan harga.</p>
+        <h3>Field dan method static</h3>
+        <p>Anggota <code>static</code> dimiliki class, bukan salinan terpisah pada tiap object. Karena <code>jumlahProduk</code> adalah satu counter bersama, nilainya diakses melalui <code>Produk.jumlahProduk</code> dan bertambah setiap constructor produk dijalankan.</p>
+        <h3>Contoh kode dan pemanggilan</h3>
+        <p>Simpan sebagai <code>MainProduk.java</code>. Program membuat satu object dengan constructor default dan satu dengan parameter.</p>
         <pre class="code"><code>class Produk {
     String nama;
     double harga;
@@ -329,26 +358,38 @@ class Main {
     }
 }
 
-Produk p = new Produk("Buku", 25000);
-System.out.println(Produk.jumlahProduk);</code></pre>
-        <p><strong>Instance member</strong> dimiliki masing-masing object. <strong>Static member</strong> dimiliki
-          bersama oleh class, sehingga contoh penghitung jumlah object diakses melalui <code>Produk.jumlahProduk</code>.
-          Constructor dipanggil ketika <code>new</code> membuat object; overloading memberi beberapa cara inisialisasi,
-          sedangkan <code>this(...)</code> meneruskan inisialisasi ke constructor lain dalam class yang sama.</p>
+public class MainProduk {
+    public static void main(String[] args) {
+        Produk p1 = new Produk();
+        Produk p2 = new Produk("Buku", 25000);
+        System.out.println(p1.nama);
+        System.out.println(p2.nama + " Rp" + p2.harga);
+        System.out.println("Jumlah produk: " + Produk.jumlahProduk);
+    }
+}</code></pre>
+        <h3>Output</h3>
+        <pre class="code"><code>Belum diberi nama
+Buku Rp25000.0
+Jumlah produk: 2</code></pre>
+        <p>Constructor tanpa parameter memanggil constructor kedua melalui <code>this(...)</code>. Setiap pemanggilan constructor berparameter menaikkan counter yang sama.</p>
         <div class="note">Parameter constructor yang berbeda membentuk signature berbeda. Hanya perbedaan nama parameter tidak cukup untuk overloading.</div>
       </section>
       <section class="lesson" id="panel-4" role="tabpanel" aria-labelledby="tab-4" tabindex="0" hidden>
         <div class="lesson-head"><span class="number">04</span>
           <h2>Encapsulation dan access modifier</h2>
         </div>
-        <p><strong>Encapsulation</strong> membungkus data dan perilaku di dalam class serta mengontrol akses ke detail
-          internalnya. Atribut biasanya dibuat <code>private</code>; getter membaca nilai dan setter mengubahnya. Setter
-          bisa memvalidasi data supaya object tetap dalam keadaan valid.</p>
+        <h3>Encapsulation</h3>
+        <p>Encapsulation membungkus state (atribut) dan perilaku (method) dalam class serta membatasi akses langsung ke detail internal. Tujuannya agar class menjaga sendiri aturan perubahan datanya.</p>
+        <h3>Access modifier</h3>
+        <p><code>private</code> membatasi anggota ke class itu; <code>protected</code> mengizinkan package dan subclass mengaksesnya; <code>public</code> membuka anggota bagi pemanggil yang dapat melihat class.</p>
+        <h3>Getter, setter, dan validasi</h3>
+        <p>Getter menyediakan cara membaca atribut private; setter menyediakan cara mengubahnya. Validasi pada setter mencegah nilai yang melanggar aturan masuk ke object.</p>
         <ul>
           <li><code>private</code>: hanya dapat diakses dari class itu sendiri.</li>
           <li><code>protected</code>: dapat diakses di package yang sama dan oleh subclass.</li>
           <li><code>public</code>: dapat diakses dari mana saja yang melihat class tersebut.</li>
         </ul>
+        <h3>Contoh kode dan pemanggilan</h3>
         <pre class="code"><code>class Rekening {
     private double saldo;
 
@@ -361,7 +402,18 @@ System.out.println(Produk.jumlahProduk);</code></pre>
             this.saldo = saldo;
         }
     }
+}
+
+public class MainRekening {
+    public static void main(String[] args) {
+        Rekening rekening = new Rekening();
+        rekening.setSaldo(250000);
+        rekening.setSaldo(-100);
+        System.out.println(rekening.getSaldo());
+    }
 }</code></pre>
+        <h3>Output</h3>
+        <pre class="code"><code>250000.0</code></pre>
         <p>Di luar class, kode membaca saldo lewat <code>getSaldo()</code>, bukan mengubah <code>saldo</code> secara
           langsung. Validasi berada di pintu perubahan, yaitu setter. Inilah information hiding: class mengatur sendiri cara data internal dibaca dan diubah, sehingga pemanggil tidak bisa sembarang merusak keadaan object.</p>
         <div class="note">Getter/setter bukan sekadar boilerplate: gunakan setter untuk menjaga aturan, misalnya saldo tidak boleh negatif atau IPK harus berada di rentang 0–4.</div>
@@ -370,9 +422,14 @@ System.out.println(Produk.jumlahProduk);</code></pre>
         <div class="lesson-head"><span class="number">05</span>
           <h2>Inheritance dan keyword super</h2>
         </div>
-        <p><strong>Inheritance</strong> memungkinkan subclass mewarisi perilaku dan atribut yang dapat diakses dari
-          superclass. Gunakan <code>extends</code> untuk relasi “adalah jenis dari” (IS-A). <code>super</code> memanggil
-          constructor atau anggota superclass; constructor superclass berjalan lebih dahulu.</p>
+        <h3>Inheritance</h3>
+        <p>Inheritance (pewarisan) memungkinkan class baru menerima atribut dan method dari class lain. Gunakan <code>extends</code> saat hubungan antarclass memang “adalah jenis dari” (IS-A), misalnya kucing adalah hewan.</p>
+        <h3>Superclass dan subclass</h3>
+        <p>Superclass adalah class yang mewariskan bagian-bagiannya. Subclass adalah class yang menerima warisan dan dapat menambahkan perilaku khusus. Pada contoh, <code>Hewan</code> superclass dan <code>Kucing</code> subclass.</p>
+        <h3>Keyword super</h3>
+        <p><code>super</code> merujuk bagian superclass. Ekspresi <code>super(nama)</code> memanggil constructor induk yang menerima nama, sehingga data superclass diinisialisasi.</p>
+        <h3>Constructor chaining</h3>
+        <p>Constructor chaining adalah rangkaian pemanggilan constructor dalam hierarki pewarisan. Constructor superclass dijalankan sebelum inisialisasi subclass selesai; karena itu pemanggilan <code>super(...)</code> harus menjadi instruksi pertama constructor subclass.</p>
         <pre class="code"><code>class Hewan {
     protected String nama;
 
@@ -396,23 +453,35 @@ class Kucing extends Hewan {
 }</code></pre>
         <p><code>Kucing</code> IS-A <code>Hewan</code>, jadi object kucing dapat memakai method warisan seperti
           <code>makan()</code> sekaligus memiliki perilaku khusus <code>mengeong()</code>. Constructor subclass memanggil <code>super(nama)</code> sebagai langkah pertama agar bagian superclass terinisialisasi sebelum bagian subclass.</p>
+        <h3>Contoh pemanggilan dan output</h3>
+        <p>Letakkan kode berikut di class <code>MainHewan</code> untuk membuat object dan memanggil method warisan maupun method subclass:</p>
+        <pre class="code"><code>public class MainHewan {
+    public static void main(String[] args) {
+        Kucing kucing = new Kucing("Milo");
+        kucing.makan();
+        kucing.mengeong();
+    }
+}</code></pre>
+        <p>Output:</p>
+        <pre class="code"><code>Milo sedang makan
+Milo: Meong!</code></pre>
         <div class="note">Inheritance cocok untuk relasi “adalah jenis dari”. Kalau relasinya “memiliki”, biasanya gunakan composition dengan menyimpan object lain sebagai atribut.</div>
       </section>
       <section class="lesson" id="panel-6" role="tabpanel" aria-labelledby="tab-6" tabindex="0" hidden>
         <div class="lesson-head"><span class="number">06</span>
           <h2>Class diagram: inheritance dan composition</h2>
         </div>
-        <p>Pertemuan ini menggabungkan relasi class dengan studi kasus kendaraan dan tiket parkir. Di class diagram,
-          nama class, atribut, method, dan relasi menunjukkan struktur program.</p>
-        <ul>
-          <li><strong>IS-A</strong>: <code>Mobil</code> dan <code>Motor</code> adalah <code>Kendaraan</code> — gunakan
-            inheritance (<code>extends</code>).</li>
-          <li><strong>HAS-A</strong>: <code>TiketParkir</code> memiliki object <code>Kendaraan</code> sebagai atribut —
-            ini composition, bukan inheritance.</li>
-          <li><strong>Dependency</strong>: <code>Main</code> menggunakan class lain untuk menjalankan program.</li>
-          <li>Constructor overloading memberi pilihan membuat tiket dengan atau tanpa tarif per jam;
-            <code>static jumlahTiket</code> menghitung tiket bersama.</li>
-        </ul>
+        <p>Pertemuan ini menggabungkan relasi class dengan studi kasus kendaraan dan tiket parkir. Class diagram menggambarkan struktur program sebelum atau selama implementasi.</p>
+        <h3>Bagian-bagian class diagram</h3>
+        <p>Kotak class biasanya menampilkan nama class, atribut, dan method. Atribut menggambarkan data yang disimpan, method menggambarkan operasi yang tersedia, sedangkan garis dan panah menunjukkan relasi antarclass.</p>
+        <h3>Inheritance dan relasi IS-A</h3>
+        <p>Relasi IS-A berarti satu class merupakan jenis dari class lain. <code>Mobil</code> dan <code>Motor</code> adalah <code>Kendaraan</code>, sehingga dapat memakai inheritance melalui <code>extends</code>. Pada diagram UML, garis inheritance berujung segitiga kosong di superclass.</p>
+        <h3>Composition dan relasi HAS-A</h3>
+        <p>Relasi HAS-A berarti sebuah object menyimpan atau memiliki object lain sebagai bagian datanya. <code>TiketParkir</code> memiliki atribut <code>Kendaraan</code>; tiket bukan jenis kendaraan, jadi relasinya composition, bukan inheritance.</p>
+        <h3>Dependency</h3>
+        <p>Dependency berarti satu class menggunakan class lain, misalnya <code>Main</code> membuat dan memanggil object kendaraan. Hubungan penggunaan ini tidak berarti salah satu class menjadi bagian atau turunan class lainnya.</p>
+        <h3>Constructor overloading dan static</h3>
+        <p>Constructor overloading memberi pilihan membuat tiket dengan tarif default atau tarif khusus. Field <code>static jumlahTiket</code> menyimpan satu hitungan bersama untuk semua object tiket.</p>
         <pre class="code"><code>class Kendaraan {
     private String nomorPolisi;
     private String merk;
@@ -462,6 +531,20 @@ class Motor extends Kendaraan {
         return jumlahTiket;
     }
 }</code></pre>
+        <h3>Contoh pemanggilan dan output</h3>
+        <p>Simpan class pendukung sebagai file lain dalam package yang sama. Berikut cara membuat object <code>Mobil</code>, lalu dua tiket dengan constructor berbeda:</p>
+        <pre class="code"><code>public class MainParkir {
+    public static void main(String[] args) {
+        Kendaraan mobil = new Mobil("B 1234 ABC", "Toyota", 4);
+        new TiketParkir(mobil);
+        new TiketParkir(mobil, 7000);
+        System.out.println(mobil.getMerk());
+        System.out.println("Total tiket: " + TiketParkir.getJumlahTiket());
+    }
+}</code></pre>
+        <h3>Output</h3>
+        <pre class="code"><code>Toyota
+Total tiket: 2</code></pre>
         <div class="note">Ingat untuk diagram: panah inheritance mengarah dari subclass ke superclass; atribut object
           pada TiketParkir menggambarkan HAS-A. Hubungan penggunaan oleh Main adalah dependency, bukan IS-A.</div>
         <p>Class diagram membantu merancang struktur sebelum kode ditulis: kotak class merangkum atribut dan method, sementara garis dan panah menyatakan hubungan. Composition menaruh object bagian sebagai atribut class pemilik; tiket parkir mencatat kendaraan yang sedang diparkir, tetapi bukan jenis kendaraan.</p>
@@ -470,10 +553,18 @@ class Motor extends Kendaraan {
         <div class="lesson-head"><span class="number">07</span>
           <h2>Polymorphism, casting, dan dispatch</h2>
         </div>
-        <p><strong>Polymorphism</strong> berarti satu pemanggilan dapat menghasilkan perilaku berbeda.
-          <strong>Overloading</strong> memakai nama method sama dengan parameter berbeda dan dipilih compiler.
-          <strong>Overriding</strong> mengganti implementasi method warisan; saat runtime JVM memilih implementasi
-          berdasarkan tipe object sebenarnya.</p>
+        <h3>Polymorphism</h3>
+        <p>Polymorphism berarti “banyak bentuk”: referensi bertipe umum dapat menunjuk object dari subclass berbeda. Pemanggil dapat memakai method yang sama, sementara hasil perilakunya mengikuti jenis object sebenarnya.</p>
+        <h3>Overloading</h3>
+        <p>Overloading menyediakan beberapa method bernama sama dengan daftar parameter berbeda. Compiler memilih versi yang cocok berdasarkan jumlah dan tipe argumen; tipe kembalian saja tidak cukup membedakan method.</p>
+        <h3>Overriding</h3>
+        <p>Overriding terjadi ketika subclass menyediakan implementasi baru untuk method superclass dengan signature yang sama. Method tersebut harus sesuai aturan pewarisan; anotasi <code>@Override</code> meminta compiler memeriksa bahwa method benar-benar melakukan override.</p>
+        <h3>Upcasting</h3>
+        <p>Upcasting menyimpan object subclass dalam variabel bertipe superclass, seperti <code>Bentuk bentuk = new Lingkaran(3)</code>. Ini otomatis dan memungkinkan beberapa jenis object diperlakukan melalui tipe umum.</p>
+        <h3>Downcasting dan instanceof</h3>
+        <p>Downcasting mengubah referensi superclass menjadi referensi subclass agar fitur khusus subclass dapat diakses. Cast harus eksplisit dan hanya berhasil bila object aktual memang tipe tersebut; periksa dengan <code>instanceof</code> sebelum melakukan cast.</p>
+        <h3>Dynamic dispatch</h3>
+        <p>Dynamic dispatch adalah pemilihan implementasi method override saat runtime berdasarkan object aktual, bukan tipe referensinya. Karena <code>bentuk</code> menunjuk <code>Lingkaran</code>, pemanggilan <code>bentuk.luas()</code> menjalankan method milik <code>Lingkaran</code>.</p>
         <pre class="code"><code>class Bentuk {
     double luas() { return 0; }
 }
@@ -500,10 +591,22 @@ System.out.println(bentuk.luas()); // method Lingkaran dipanggil</code></pre>
           <li><strong>Dynamic method dispatch</strong>: pemilihan method override berdasarkan tipe object aktual, bukan
             tipe referensi.</li>
         </ul>
-        <pre class="code"><code>if (bentuk instanceof Lingkaran) {
-    Lingkaran lingkaran = (Lingkaran) bentuk;
-    System.out.println(lingkaran.luas());
+        <h3>Contoh pemanggilan dan output</h3>
+        <p>Simpan class <code>Bentuk</code> dan <code>Lingkaran</code> di atas bersama class berikut. Referensi induk memanggil method yang dioverride pada object lingkaran:</p>
+        <pre class="code"><code>public class MainBentuk {
+    public static void main(String[] args) {
+        Bentuk bentuk = new Lingkaran(3);
+        System.out.printf("Luas: %.2f%n", bentuk.luas());
+
+        if (bentuk instanceof Lingkaran) {
+            Lingkaran lingkaran = (Lingkaran) bentuk;
+            System.out.println(lingkaran.getClass().getSimpleName());
+        }
+    }
 }</code></pre>
+        <h3>Output</h3>
+        <pre class="code"><code>Luas: 28.27
+Lingkaran</code></pre>
         <p>Overloading dan overriding berbeda: overloading mengubah daftar parameter, sedangkan overriding
           mempertahankan signature method superclass dan mengganti perilakunya.</p>
         <div class="note">Manfaatnya: kode pemanggil dapat bekerja dengan tipe induk yang sama, sementara tiap object memberi perilaku yang sesuai dengan jenis konkretnya.</div>
@@ -545,7 +648,23 @@ class Pengguna {
             System.out.println("Transaksi gagal");
         }
     }
+}
+
+public class MainToko {
+    public static void main(String[] args) {
+        Pengguna user = new Pengguna("Abia", 500000);
+        Produk keyboard = new Produk("Keyboard", 120000, 5);
+        user.beli(keyboard, 2);
+        user.beli(keyboard, 3);
+        System.out.println("Saldo akhir: " + user.saldo);
+        System.out.println("Stok akhir: " + keyboard.stok);
+    }
 }</code></pre>
+        <h3>Output</h3>
+        <pre class="code"><code>Transaksi berhasil
+Transaksi gagal
+Saldo akhir: 260000.0
+Stok akhir: 3</code></pre>
         <p><strong>Konsep:</strong> object saling berinteraksi lewat method dan parameter. Perhatikan validasi stok, jumlah, dan saldo sebelum mengubah state object.</p>
 
         <h3>2. Tiket parkir: relasi kendaraan</h3>
@@ -586,7 +705,24 @@ class TiketParkir {
         this.tarifPerJam = tarifPerJam;
         jumlahTiket++;
     }
+
+    static int getJumlahTiket() {
+        return jumlahTiket;
+    }
 }</code></pre>
+        <h3>Contoh pemanggilan</h3>
+        <pre class="code"><code>public class MainParkir {
+    public static void main(String[] args) {
+        Kendaraan mobil = new Mobil("B 1234 ABC", "Toyota", 4);
+        TiketParkir reguler = new TiketParkir(mobil);
+        TiketParkir khusus = new TiketParkir(mobil, 7000);
+        System.out.println(mobil.getMerk());
+        System.out.println("Total tiket: " + TiketParkir.getJumlahTiket());
+    }
+}</code></pre>
+        <h3>Output</h3>
+        <pre class="code"><code>Toyota
+Total tiket: 2</code></pre>
         <p><strong>Konsep:</strong> <code>super(...)</code> mengisi data bagian superclass; overloaded constructor menyediakan tarif default atau tarif khusus; composition memisahkan tanggung jawab tiket dari detail kendaraan.</p>
 
         <h3>3. Penggajian: polymorphism pegawai</h3>
@@ -627,6 +763,28 @@ Pegawai[] pegawai = {
 for (Pegawai p : pegawai) {
     System.out.println(p.nama + ": " + p.hitungGaji());
 }</code></pre>
+        <h3>Contoh pemanggilan</h3>
+        <p>Letakkan kode demo ini di <code>main</code> pada class <code>MainPayroll</code>:</p>
+        <pre class="code"><code>public class MainPayroll {
+    public static void main(String[] args) {
+        Pegawai[] pegawai = {
+            new Pegawai("Andi", 5000000),
+            new PegawaiTetap("Budi", 6000000, 0.10),
+            new PegawaiTetap("Citra", 7000000, 0.15)
+        };
+
+        for (Pegawai p : pegawai) {
+            System.out.printf("%s: Rp%.0f%n", p.nama, p.hitungGaji());
+        }
+        System.out.printf("Bonus Andi (5%%): Rp%.0f%n",
+            pegawai[0].hitungBonus(0.05));
+    }
+}</code></pre>
+        <h3>Output</h3>
+        <pre class="code"><code>Andi: Rp5000000
+Budi: Rp6600000
+Citra: Rp8050000
+Bonus Andi (5%): Rp250000</code></pre>
         <p><strong>Konsep:</strong> upcasting terjadi saat <code>PegawaiTetap</code> dimasukkan ke array <code>Pegawai[]</code>. Dynamic dispatch memilih <code>hitungGaji()</code> yang override saat runtime; overloading membedakan <code>hitungBonus()</code> dan <code>hitungBonus(double)</code> dari parameternya.</p>
       </section>
     </main>
